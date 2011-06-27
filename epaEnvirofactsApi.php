@@ -1,0 +1,379 @@
+<?php
+
+class epaEnvirofactsApi extends APIBaseClass{
+// http://www.epa.gov/enviro/facts/services.html
+
+//http://iaspub.epa.gov/enviro/efservice/ <table_name> / <column_name> / <column_value> /rows/ <first_row> : <last_row>
+
+
+
+public static $EFFRS = array(
+	'EFFRS_AFSPLT1'=>
+					array(
+						'AFS_PLANT_ID'
+						,'CDS_PLANT_ID'
+						,'COUNTY_CODE'
+						,'COUNTY_NAME'
+						,'DATE_PLANT_INFO_LAST_UPDATED'
+						,'DUN_BRADSTREET_NUMBER'
+						,'EPA_PLANT_ID'
+						,'GOVT_FACILITY_CODE_DESC'
+						,'HPV_FLAG'
+						,'LOCAL_CONTROL_REGION'
+						,'LOCAL_CONTROL_REGION_DESC'
+						,'NAICS_CODE'
+						,'NAICS_CODE_DESCRIPTION'
+						,'NAICS_EQUIVALENT_SIC'
+						,'NAT_INIT_AIR_TOXICS'
+						,'NAT_INIT_AIR_TOXICS_DESC'
+						,'OPERATING_STATUS'
+						,'OPERATING_STATUS_DESCRIPTION'
+						,'PLANT_CITY'
+						,'PLANT_ID'
+						,'PLANT_NAME'
+						,'PLANT_STREET_ADDRESS'
+						,'PRIMARY_SIC_CODE'
+						,'PRIMARY_SIC_DESCRIPTION'
+						,'REGION_CODE'
+						,'SECONDARY_SIC_CODE'
+						,'SIC_EQUIVALENT_NAICS'
+						,'STATE_ABBREV'
+						,'STATE_CODE'
+						,'STATE_COUNTY_COMPLIANCE_SOURCE'
+						,'STATE_NAME'
+						,'STATE_REGISTRATION_NUMBER'
+						,'TERTIARY_SIC_CODE'
+						,'ZIP_CODE'),
+	'EFFRS_AFSPLT2'=> 					
+					array(
+						'CONTACT_PERSION_COMPLIANCE'
+						,'EPA_CLASS_CODE'
+						,'EPA_CLASS_CODE_DESC'
+						,'EPA_COMPLIANCE_STATUS'
+						,'EPA_COMPLIANCE_STATUS_DESC'
+						,'EPA_LATEST_FCE_ACTION_TYPE'
+						,'EPA_LATEST_FCE_DATE_ACHIEVED'
+						,'ES_CLASS_CODE'
+						,'ES_CLASS_CODE_DESC'
+						,'ES_COMPLIANCE_STATUS'
+						,'ES_COMPLIANCE_STATUS_DESC'
+						,'ES_LATEST_FCE_ACTION_TYPE'
+						,'ES_LATEST_FCE_DATE_ACHIEVED'
+						,'MAILING_CITY'
+						,'MAILING_PLANT_NAME'
+						,'MAILING_STATE_ABBREV'
+						,'MAILING_STATE_NAME'
+						,'MAILING_STREET_ADDRESS'
+						,'MAILING_ZIP'
+						,'PHONE_AREA_CODE_COMPLIANCE'
+						,'PHONE_COMPLIANCE'
+						,'STATE_CLASS_CODE'
+						,'STATE_CLASS_CODE_DESC'
+						,'STATE_COMPLIANCE_STATUS'
+						,'STATE_COMPLIANCE_STATUS_DESC'
+						,'STATE_COUNTY_COMPLIANCE_SOURCE'
+						,'STATE_LATEST_FCE_ACTION_TYPE'
+						,'STATE_LATEST_FCE_DATE_ACHIEVED'
+					),
+		'EFFRS_AFSACT1'	=>
+				array(
+						'ACTION_DESC'
+						,'ACTION_NUMBER'
+						,'ACTION_TYPE'
+						,'AIR_PROGRAM_CODES'
+						,'CREATION_DATE'
+						,'DATE_ACHIEVED'
+						,'HPV_ADDRESSING_ACTION_DESC'
+						,'KEY_ACTION_NUMBERS'
+						,'NATIONAL_ACTION_DESC'
+						,'NATIONAL_ACTION_TYPE'
+						,'PENALTY_AMT'
+						,'POLLUTANT_CODE'
+						,'REGIONAL_DATA_ELEMENT'
+						,'REGIONAL_DATA_ELEMENT_16'
+						,'RESULTS_CODE'
+						,'RESULTS_CODE_DESC'
+						,'STATE_COUNTY_COMPLIANCE_SOURCE'					
+					),
+		'EFFRS_AFSACT2'=>
+				array(
+						'ACTION_NUMBER'
+						,'ACTION_TYPE'
+						,'AIR_PROGRAM_CODES'
+						,'DATE_ACHIEVED'
+						,'DATE_CREATED'
+						,'HPV_ADDRESSING_ACTION_DATE'
+						,'HPV_ADDRESSING_ACTION_DESC'
+						,'HPV_ADDRESSING_ACTION_PENALTY'
+						,'HPV_ADDRESSING_ACTION_TYPE'
+						,'HPV_DAY_ZERO_ACTION_DATE'
+						,'HPV_DAY_ZERO_ACTION_DESC'
+						,'HPV_DAY_ZERO_ACTION_TYPE'
+						,'HPV_DISCOVERY_ACTION_DESC'
+						,'HPV_DISCOVERY_ACTION_TYPE'
+						,'HPV_DISCOVERY_DATE'
+						,'HPV_RESOLUTION_ACTION_DESC'
+						,'HPV_RESOLUTION_ACTION_TYPE'
+						,'HPV_RESOLUTION_DATE'
+						,'LEAD_AGENCY'
+						,'LEAD_AGENCY_DESC'
+						,'NATIONAL_ACTION_TYPE'
+						,'STATE_COUNTY_COMPLIANCE_SOURCE'
+						,'VIOLATION_IDENTIFIER'
+						,'VIOLATION_POLLUTANTS'
+						,'VIOLATION_TYPE_CODES'
+				),
+		'EFFRS_AFSAP'=>
+				array(
+					'AIR_PROGRAMS'
+					,'AIR_PROGRAM_CODE'
+					,'AIR_PROGRAM_DESC'
+					,'AIR_PROGRAM_STATUS'
+					,'AIR_PROGRAM_STATUS_DESC'
+					,'AIR_PROGRAM_SUBPART'
+					,'AIR_PROGRAM_SUBPART_DESC'
+					,'EPA_CLASS_CODE'
+					,'EPA_CLASS_CODE_DESC'
+					,'EPA_COMPLIANCE_STATUS'
+					,'EPA_COMPLIANCE_STATUS_DESC'
+					,'ES_CLASS_CODE'
+					,'ES_CLASS_CODE_DESC'
+					,'ES_COMPLIANCE_STATUS'
+					,'ES_COMPLIANCE_STATUS_DESC'
+					,'STATE_CLASS_CODE'
+					,'STATE_CLASS_CODE_DESC'
+					,'STATE_COMPLIANCE_STATUS'
+					,'STATE_COMPLIANCE_STATUS_DESC'
+					,'STATE_COUNTY_COMPLIANCE_SOURCE'			
+				),	
+		'EFFRS_AFSAPP'=>
+				array(
+					'AIR_PROGRAMS'
+					,'AIR_PROGRAM_CODE'
+					,'CHEMICAL_ABSTRACT_SERVICE_DESC'
+					,'CHEMICAL_ABSTRACT_SERVICE_NUM'
+					,'DATE_RECORD_UPDATED'
+					,'EPA_ATTAIN_IND'
+					,'EPA_ATTAIN_IND_DESC'
+					,'EPA_PLLT_CLASS_CODE'
+					,'EPA_PLLT_CLASS_DESC'
+					,'EPA_PLLT_COMPLIANCE_STATUS'
+					,'ES_ATTAIN_IND'
+					,'ES_ATTAIN_IND_DESC'
+					,'ES_PLLT_CLASS_CODE'
+					,'ES_PLLT_CLASS_DESC'
+					,'ES_PLLT_COMPLIANCE_DESC'
+					,'ES_PLLT_COMPLIANCE_STATUS'
+					,'POLLUTANT_CODE'
+					,'POLLUTANT_CODE_DESC'
+					,'STATE_ATTAIN_IND'
+					,'STATE_ATTAIN_IND_DESC'
+					,'STATE_COUNTY_COMPLIANCE_SOURCE'
+					,'STATE_PLLT_CLASS_CODE'
+					,'STATE_PLLT_CLASS_DESC'
+					,'STATE_PLLT_COMPLIANCE_STATUS'				
+				),
+		'EFFRS_AFSCMS'=>
+				array(				
+					'CMS_SOURCE_CATEGORY'
+					,'CMS_START_DATE'
+					,'COUNTY_NAME'
+					,'DUN_BRADSTREET_NUMBER'
+					,'EPA_PLANT_ID'
+					,'FY2008_CMS_IND'
+					,'FY2008_CMS_IND_DESC'
+					,'FY2009_CMS_IND'
+					,'FY2009_CMS_IND_DESC'
+					,'FY2010_CMS_IND'
+					,'FY2010_CMS_IND_DESC'
+					,'FY2011_CMS_IND'
+					,'FY2011_CMS_IND_DESC'
+					,'FY2012_CMS_IND'
+					,'FY2012_CMS_IND_DESC'
+					,'FY2013_CMS_IND'
+					,'FY2013_CMS_IND_DESC'
+					,'FY2014_CMS_IND'
+					,'FY2014_CMS_IND_DESC'
+					,'FY2015_CMS_IND'
+					,'FY2015_CMS_IND_DESC'
+					,'PLANT_ID'
+					,'REGION_CODE'
+					,'STATE_ABBREV'
+					,'STATE_COUNTY_COMPLIANCE_SOURCE'
+					,'STATE_NAME'
+				),
+		'EFFRS_AFSSUBP'=> array(
+					'AIR_PROGRAM_CODE'
+					,'CDS_PLANT_ID'
+					,'COUNTY_CODE'
+					,'COUNTY_NAME'
+					,'DUN_BRADSTREET_NUMBER'
+					,'EPA_PLANT_ID'
+					,'PLANT_ID'
+					,'REGION_CODE'
+					,'STATE_ABBREV'
+					,'STATE_CODE'
+					,'STATE_COUNTY_COMPLIANCE_SOURCE'
+					,'STATE_NAME'
+					,'SUBPART_HORIZONTAL'
+					)
+					
+										
+)		;
+								
+public static $BR = array(
+		'BREPORT_CYCLE' => array('YEAR'),
+		'RCR_BGM_BASIC' => array('GENERATION_TONS_CALC','MANAGEMENT_METHOD'),
+		'BWR_BASIC' => array(
+					'IO_TDR_ID'
+					,'MANAGEMENT_METHOD'
+					,'RECEIVED_TONS_CALC'
+					,'SUB_PG_NUM'
+					),
+		'BGM_ONSITE_TREATMENT' => array(
+					'MANAGED_TONS_CALC'
+					,'MANAGEMENT_METHOD'
+					,'SYS_PG_NUM_SEQ'
+					),
+		'BGM_OFFSITE_SHIPMENT'=> array(					
+					'IO_TDR_ID'
+					,'MANAGEMENT_METHOD'
+					,'SHIPPED_TONS_CALC'
+					),
+		'RCR_LU_SOURCE_CODE2' => array('SOURCE_CODE','SOURCE_CODE_DESC'),
+		
+		'RCR_LU_MANAGEMENT_METHOD' => array('MANAGEMENT_METHOD_DESC'),
+		
+		'RCR_LU_WASTE_CODE' => array(
+					'BR_LOAD_ACTIVE_STATUS'
+					,'CODE_TYPE'
+					,'OWNER'
+					,'WASTE_CODE'
+					,'WASTE_CODE_DESC'),
+					
+		'RCR_LU_FORM_CODE2' =>array('FORM_CODE','FORM_CODE_DESC'),
+		
+		'BWR_BASIC' => array('IO_TDR_ID','MANAGEMENT_METHOD','RECEIVED_TONS_CALC','SUB_PG_NUM'),
+
+		'RCR_BWR_WASTE_CODE'=> array('SUB_PG_NUM'),
+
+
+
+);
+
+	public static $CERCLIS = array(
+	
+		'sites' => array(
+		
+			'CER_CONTACT' =>array(
+								'PERSON_FIRST_NAME'
+								,'PERSON_LAST_NAME'
+								,'PERSON_PHONE_NMBR1'
+								,'SITE_ID'
+								),
+			'CER_LOCATION'=> array('ACCURACY_VALUE'
+								,'CITY_NAME'
+								,'COLLECTION_DATE'
+								,'COLLECT_MTH_CODE'
+								,'COMMENT_TEXT'
+								,'COUNTY_NAME'
+								,'GEOMETRIC_TYPE_CODE'
+								,'HDATUM_CODE'
+								,'LATITUDE'
+								,'LOCATION_ADDRESS'
+								,'LONGITUDE'
+								,'POSTAL_CODE'
+								,'PRIMARY_NAME'
+								,'REF_POINT_CODE'
+								,'SCALE'
+								,'SITE_EPA_ID'
+								,'SOURCE_CODE'
+								,'STATE_CODE'
+								,'SUB_ID'
+								,'SUB_TYPE_CODE'
+								,'VACCURACY'
+								,'VDATUM_CODE'
+								,'VERTICAL_MEASURE'
+								,'VMETHOD_CODE'),
+
+			'CER_OPERABLE_UNIT'=> array('OU_DESC_TEXT'
+								,'OU_ID'
+								,'OU_NAME'
+								,'SITE_ID'),
+								
+			'CER_FEDERAL_REGISTER' => array('FR_DATE'
+								,'FR_NPL_UPDATE_NMBR'
+								,'RFRA_CODE'
+								,'SITE_ID'),
+								
+			'CER_REF_FDRL_RGSTR_ACTN'=> array('RFRA_CODE','RFRA_DESC'),
+
+
+			'CER_REF_CMT_SITE' => array('RCST_CODE','RCS_DESC'),
+			
+			'CER_SITE' => array('RFED_FCLTY_CODE'
+			,'RNPL_STATUS_CODE'
+			,'ROT_CODE'
+			,'RREGION_CODE'
+			,'RSITINC_CODE'
+			,'RSIT_CODE'
+			,'RSTATE_CODE'
+			,'SITE_CITY_NAME'
+			,'SITE_CNGRSNL_DSTRCT_CODE'
+			,'SITE_CNTY_CODE'
+			,'SITE_CNTY_NAME'
+			,'SITE_EPA_ID'
+			,'SITE_FED_FAC_HAZ_WST_DCKT_FLAG'
+			,'SITE_ID'
+			,'SITE_IFMS_SSID_CODE'
+			,'SITE_NAME'
+			,'SITE_NFRAP_FLAG'
+			,'SITE_PRIMARY_LATITUDE'
+			,'SITE_PRIMARY_LONGITUDE'
+			,'SITE_RCRA_ID'
+			,'SITE_SHORT_NAME'
+			,'SITE_SMSA_NMBR'
+			,'SITE_STRT_ADRS1'
+			,'SITE_STRT_ADRS2'
+			,'SITE_USGS_HYDRO_UNIT_NMBR'
+			,'SITE_ZIP_CODE'),
+			
+			'CER_WST_SRC_MEDIA_CONTAMINATED'=> array('RVOLUME_UNIT_CODE'
+			,'SITE_ID'
+			,'WSMC_CLNUP_RPRTD_DATE'
+			,'WSMC_CLNUP_VLM_HIGH_AMT'
+			,'WSMC_CLNUP_VLM_LOW_AMT'
+			,'WSMC_NMBR'),
+			
+			'CER_WSMC_CROSS_LINK' => 'SITE_ID'
+			,'WCL_C2501'
+			,'WSMC_NMBR'),
+			
+			'CER_SITE_ALIAS' => array('RSTATE_CODE'
+			,'SA_NAME'
+			,'SITE_ALIAS_CITY_NAME'
+			,'SITE_ALIAS_ID'
+			,'SITE_ALIAS_STRT_ADRS'
+			,'SITE_ALIAS_ZIP_CODE'
+			,'SITE_ID')
+
+		);					
+
+
+
+
+
+	public static $api_url = 'http://iaspub.epa.gov/enviro/efservice/';
+	
+	public static $api_key = '';
+	
+	// if this is not set you must enter in jurisdiction ID's for all methods
+	public static $jurisdiction_id = 'sfgov.org';
+
+	public function __construct($url=NULL)
+	{
+		parent::new_request(($url?$url:self::$api_url));
+	}
+	
+
+	}
